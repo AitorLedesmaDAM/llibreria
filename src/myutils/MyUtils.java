@@ -4,6 +4,9 @@
  */
 package myutils;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author Lluis
@@ -19,7 +22,12 @@ public class MyUtils {
  */
 public static String inverteix (String cadena)
 {
-    String resultat="";
+    String resultat = "";
+    
+    for (int i=cadena.length()-1; i>=0; i--){
+	
+        resultat = resultat + cadena.charAt(i);
+    }
     return resultat;
 }
 /**
@@ -32,8 +40,50 @@ public static String inverteix (String cadena)
  */
 public static int edat (int day, int month, int year)
 {
-    int resultat=0;
-    return resultat;
+   Calendar actual = new GregorianCalendar();
+   long dataactual = actual.getTimeInMillis();
+   long resta = 0;
+
+    if (year < actual.get(Calendar.YEAR)){
+        if (year > actual.get(Calendar.YEAR)-150){    
+            if (month > 0 && month < 12){
+                if(month==4 || month==6 || month==9 || month==11){
+                    if (day > 0 && day <= 30){
+                        Calendar calendar = new GregorianCalendar(year, month-1, day); 
+                        long datanaix = calendar.getTimeInMillis();
+                        resta = dataactual - datanaix;
+                        
+                    }else{
+                        System.out.println("-2");
+                    }
+                }else if (month == 2){
+                    if (day > 0 && day <= 28){
+                        Calendar calendar = new GregorianCalendar(year, month-1, day); 
+                        long datanaix = calendar.getTimeInMillis();
+                        resta = dataactual - datanaix;
+                    }else{
+                        System.out.println("-2");
+                    }
+                }else{
+                    if (day > 0 && day <= 31){
+                        Calendar calendar = new GregorianCalendar(year, month-1, day); 
+                        long datanaix = calendar.getTimeInMillis();
+                        resta = dataactual - datanaix;
+                    }else{
+                        System.out.println("-2");
+                    }
+                }
+            }
+        }else{
+            System.out.println("-1");
+        }
+    }else{
+        System.out.println("-1");
+    }
+    long dies = 3600*24*1000;
+    long resultat = resta/dies;
+    long anys = resultat/365;
+    return (int)anys;
 }
 
 /**
